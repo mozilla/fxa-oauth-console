@@ -1,0 +1,23 @@
+FROM node:4.8.2-alpine
+
+RUN apk add --no-cache git make gcc g++ linux-headers openssl
+
+RUN addgroup -g 10001 app && \
+    adduser -D -G app -h /app -u 10001 app
+WORKDIR /app
+
+USER app
+
+COPY package.json package.json 
+COPY bower.json bower.json
+
+RUN npm install --production && rm -rf ~app/.npm /tmp/*
+
+COPY . /app
+USER root
+RUN chown app:app /app/config
+
+USER root
+RUN chown root:root /app/config
+
+USER app
