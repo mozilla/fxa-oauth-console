@@ -9,6 +9,7 @@ WORKDIR /app
 COPY package.json package.json 
 COPY bower.json bower.json
 
+RUN npm config set loglevel warn
 RUN npm install --unsafe-perm && rm -rf ~app/.npm /tmp/*
 
 # S3 bucket in Cloud Services prod IAM
