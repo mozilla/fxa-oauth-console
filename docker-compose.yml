@@ -1,0 +1,12 @@
+version: "2.1"
+services:
+  fxa-oauth-console:
+    build:
+      context: .
+      dockerfile: Dockerfile-build
+    command: node bin/server.js
+    image: mozilla/fxa-oauth-console
+    ports:
+      - "10137:10137"
+    environment:
+      PROFILE_URI: 'http://www.udara.com'
