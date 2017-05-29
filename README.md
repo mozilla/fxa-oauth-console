@@ -19,7 +19,7 @@ npm start
 ## Docker Dev
 You can run the docker container by:
 * ```docker-compose build```
-* ```docker-compose-up```
+* ```docker-compose up```
 
 #### Changing environment configuration.
 You can customize the servers that the app communicates with by passing them in the docker-compose file.
