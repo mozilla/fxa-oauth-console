@@ -10,7 +10,7 @@ const updateConfig = require('./updateConfigFromEnv');
 
 /* Update config that's passed into ember app by updating the config built at run-time
  * with config values passed in through environment variables.
- * This enables re-running the server with newer environment vars 
+ * This enables re-running the server with newer environment vars
  * without having to rebuild ember app.
 */
 updateConfig(config)
