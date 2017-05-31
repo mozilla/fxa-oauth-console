@@ -10,6 +10,7 @@ const url = require('url');
 
 const indexPath = path.join(__dirname, '..', 'dist', 'index.html');
 const META_TAG_PATTERN = /<meta name="fxa-oauth-console\/config\/environment" content="(.*)" \/>/g;
+const BASE_URL_TAG_PATTERN = /<base href="\/" \/>/g;
 
 function getConfigFromHtml(html) {
   const match = META_TAG_PATTERN.exec(html)[1];
@@ -59,11 +60,16 @@ function applyEnvVars(currentConfig, envVars, serverConfig) {
   return currentConfig;
 }
 
-function writeNewConfigToIndexHtml(html, configToWrite) {
+function writeNewIndexHtml(html, configToWrite, baseUrl) {
   return new Promise((resolve, reject) => {
     const encodedConfig = encodeURIComponent(JSON.stringify(configToWrite));
     const newMetaTag = `<meta name="fxa-oauth-console/config/environment" content="${encodedConfig}" />`;
-    const newHtml = html.replace(META_TAG_PATTERN, newMetaTag);
+    var newHtml = html.replace(META_TAG_PATTERN, newMetaTag);
+
+    if (baseUrl) {
+      const newBaseTag = `<base href="${baseUrl}" />`;
+      newHtml = newHtml.replace(BASE_URL_TAG_PATTERN, newBaseTag);
+    }
     fs.writeFile(indexPath, newHtml, err => {
       if (err) {
         reject(err);
@@ -74,7 +80,7 @@ function writeNewConfigToIndexHtml(html, configToWrite) {
   });
 }
 
-function updateConfig(serverConfig) {
+function updateIndex(serverConfig) {
   return new Promise((resolve, reject) => {
     fs.readFile(indexPath, 'utf8', (err, html) => {
       if (err) {
@@ -84,7 +90,9 @@ function updateConfig(serverConfig) {
       const envVars = getConfigsFromEnv();
       const newConfig =  applyEnvVars(currentConfig, envVars, serverConfig);
 
-      writeNewConfigToIndexHtml(html, newConfig)
+      const baseUrl = process.env.BASE_URL || null;
+
+      writeNewIndexHtml(html, newConfig, baseUrl)
         .then(() => {
           resolve();
         })
@@ -95,4 +103,4 @@ function updateConfig(serverConfig) {
   });
 }
 
-module.exports = updateConfig;
+module.exports = updateIndex;
