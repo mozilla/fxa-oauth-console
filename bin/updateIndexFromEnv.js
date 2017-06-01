@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 /* global require */
-
+"use strict";
 const fs = require('fs');
 const path = require('path');
 const log = require('mozlog')('server');
@@ -64,7 +64,7 @@ function writeNewIndexHtml(html, configToWrite, baseUrl) {
   return new Promise((resolve, reject) => {
     const encodedConfig = encodeURIComponent(JSON.stringify(configToWrite));
     const newMetaTag = `<meta name="fxa-oauth-console/config/environment" content="${encodedConfig}" />`;
-    var newHtml = html.replace(META_TAG_PATTERN, newMetaTag);
+    let newHtml = html.replace(META_TAG_PATTERN, newMetaTag);
 
     if (baseUrl) {
       const newBaseTag = `<base href="${baseUrl}" />`;
