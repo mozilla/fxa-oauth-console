@@ -49,7 +49,7 @@ jobs:
             if [ -n "${DOCKER_TAG}" ]; then
               echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
               echo ${DOCKERHUB_REPO}:${DOCKER_TAG}
-              docker tag fxa-oauth-server:build ${DOCKERHUB_REPO}:${DOCKER_TAG}
+              docker tag fxa-oauth-console:build ${DOCKERHUB_REPO}:${DOCKER_TAG}
               docker images
               docker push ${DOCKERHUB_REPO}:${DOCKER_TAG}
             fi
