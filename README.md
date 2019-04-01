@@ -1,5 +1,8 @@
 # Firefox Accounts OAuth Credential Management Dashboard
 
+**This project has moved to https://github.com/mozilla/fxa/tree/master/packages/fxa-oauth-console**
+
+
 [![Build Status](https://travis-ci.org/mozilla/fxa-oauth-console.svg?branch=master)](https://travis-ci.org/mozilla/fxa-oauth-console)
 ![](https://mdn.mozillademos.org/files/9783/dashboard-example.jpg)
 ## Development
