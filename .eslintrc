@@ -1,12 +1,14 @@
-{
-  "extends": "fxa/server",
-  "ecmaFeatures": {
-    "modules": true
-  },
-  "rules": {
-    "semi": 0
-  },
-  "parserOptions": {
-    "sourceType": "module"
-  }
-}
+plugins:
+  - fxa
+
+extends: plugin:fxa/server
+
+rules:
+  handle-callback-err: 0
+  prefer-const: 0
+  strict: 0
+  semi: [2, "always"]
+  indent: [0, 2]
+
+parserOptions:
+  ecmaVersion: 2018
